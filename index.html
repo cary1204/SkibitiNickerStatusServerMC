@@ -1,0 +1,24 @@
+<div id="mc-status" style="font-family: Arial, sans-serif; border: 2px solid #ccc; padding: 20px; max-width: 400px;">
+  <h2>🌐 My Minecraft Server</h2>
+  <p><strong>Server IP:</strong> <span id="server-ip"> Skibiti_Nicker.aternos.me</span></p>
+  <p><strong>Status:</strong> <span id="server-status">Checking...</span></p>
+  <p><strong>Players:</strong> <span id="server-players">Loading...</span></p>
+</div>
+
+<script>
+  const ip = "cheagle.aternos.host:52669";
+
+  fetch(`https://api.mcsrvstat.us/2/${ip}`)
+    .then(response => response.json())
+    .then(data => {
+      const status = data.online ? "🟢 Online" : "🔴 Offline";
+      const players = data.online ? `${data.players.online}/${data.players.max}` : "N/A";
+
+      document.getElementById("server-status").textContent = status;
+      document.getElementById("server-players").textContent = players;
+    })
+    .catch(error => {
+      document.getElementById("server-status").textContent = "⚠️ Error fetching status";
+      document.getElementById("server-players").textContent = "N/A";
+    });
+</script>
